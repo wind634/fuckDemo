@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="control_background">#cc4285f4</color>
+
+    <color name="colorPrimary">#22B082</color>
+
+    <color name="main_title_color">#1E2223</color>
+    <color name="main_frame_color">#8F8F8F</color>
+
+    <color name="trans_main_frame_color">#338F8F8F</color>
+
+    <color name="line_black_color">#181C1D</color>
+    <color name="line_green_color">#4F5B5E</color>
+    <color name="main_option_color">#2A393E</color>
+
+    <color name="main_option_color1">#ffffff</color>
+
+    <!--<color name="main_text_color">#779096</color>-->
+    <color name="main_text_color">#707070</color>
+
+    <color name="setting_line_gray">#353838</color>
+    <color name="radio_text_normal_color">#A2B3C4</color>
+    <color name="text_color_gray">#333333</color>
+    <color name="text_gray">#808080</color>
+    <color name="main_bg">#666666</color>
+    <color name="title_color">#A2B3C4</color>
+    <color name="table_title_bg">#4D4D4D</color>
+
+    <color name="transColorGray1">#66020934</color>
+
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#ffffff</color>
+
+    <color name="red">#ff0000</color>
+
+    <color name="red2">#ffff0000</color>
+
+    <color name="colorBlue">#1296db</color>
+    <color name="colorOrange">#e06f60</color>
+    <color name="colorGray1">#f4f4f4</color>
+    <color name="trans">#00000000</color>
+
+    <color name="titleBlack">#020934</color>
+    <!-- 半透明 -->
+    <color name="titleTransBlack">#7f020934</color>
+
+    <color name="toastTransBlack">#7f020934</color>
+
+    <color name="consoleTransBlack">#66020934</color>
+
+
+    <color name="colorGray2">#cdcdcd</color>
+    <color name="transcolorGray2">#7fcdcdcd</color>
+    <color name="contentBlack">#2c2c2c</color>
+
+    <color name="transWhite">#e6e6e6</color>
+
+    <color name="colorGray3">#707070</color>
+
+
+    <color name="normal_btn_bg">#e06f60</color>
+    <color name="selected_btn_bg">#B65E53</color>
+
+    <color name="layout_normal_bg">#ffffff</color>
+    <color name="layout_selected_bg">#f4f4f4</color>
+
+
+    <color name="aphla_black">#e0000000</color>
+
+    <color name="dropHeader1">#1296db</color>
+    <color name="dropHeader2">#cdcdcd</color>
+    <color name="dropHeader3">#020934</color>
+
+    <color name="transparent">#9000</color>
+
+</resources>
