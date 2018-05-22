@@ -37,5 +37,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     compile(name: 'facekit_v1.8', ext: 'aar')
     compile 'com.zhy:percent-support-extends:1.1.1'
+    compile 'com.dyhdyh.loadingbar:loadingbar:1.4.4'
 
 }
