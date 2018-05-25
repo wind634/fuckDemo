@@ -42,9 +42,9 @@ public class CompareTask extends TimerTask{
 
 
                  if(cnt % SysConfig.SwitchImageInvertalTime ==0){
-                     if(imageCount != MainActivity.imagePathList.size()) {
+                     if(imageCount != MainActivity.imagePathList.size()-1) {
                          imageCount++;
-                         Toast.makeText(context, "切换第" + imageCount +"张图片", Toast.LENGTH_SHORT).show();
+                         Toast.makeText(context, "切换到第" + (imageCount+1) +"张图片", Toast.LENGTH_SHORT).show();
                          context.setImage(imageCount);
                      }else{
                          Toast.makeText(context, "图片比对完成", Toast.LENGTH_SHORT).show();
