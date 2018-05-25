@@ -1,7 +1,5 @@
 package com.dotpix.fuckdemo.tasks;
 
-import android.widget.Toast;
-
 import com.dotpix.fuckdemo.activity.MainActivity;
 import com.dotpix.fuckdemo.common.SysConfig;
 
@@ -43,7 +41,9 @@ public class SwitchImageTask extends TimerTask{
                  String hoursStr = String.format("%02d", hours);
                  String minutesStr = String.format("%02d", minutes);
                  String secondsStr = String.format("%02d", seconds);
-                 context.setDateTextView(hoursStr + ":" + minutesStr + ":" + secondsStr);
+
+                 String timeStr = hoursStr + ":" + minutesStr + ":" + secondsStr;
+                 context.setDateTextView(timeStr);
 
 
                  if(cnt % SysConfig.SwitchImageInvertalTime ==0){
@@ -54,10 +54,13 @@ public class SwitchImageTask extends TimerTask{
                          timer.schedule(compareTask, (long) (SysConfig.CompareImageDelayTime * 1000));
 
 
-                         Toast.makeText(context, "切换到第" + (imageCount+1) +"张图片", Toast.LENGTH_SHORT).show();
+//                         Toast.makeText(context, "切换到第" + (imageCount+1) +"张图片", Toast.LENGTH_SHORT).show();
+                         context.setLogText(timeStr + "   " + "切换到第" + (imageCount+1) +"张图片");
                          context.setImage(imageCount);
                      }else{
-                         Toast.makeText(context, "图片比对完成", Toast.LENGTH_SHORT).show();
+//                         Toast.makeText(context, "图片比对完成", Toast.LENGTH_SHORT).show();
+
+                         context.setLogText(timeStr + "   " + "图片比对完成");
 
                          if (!compareTask.cancel()){
                              compareTask.cancel();

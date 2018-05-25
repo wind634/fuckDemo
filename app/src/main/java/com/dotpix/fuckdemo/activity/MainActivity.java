@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private Button startCompareBtn;
     private TextView dateText;
     private ImageView showImage;
+    private TextView logText;
+
     public static List<String> imagePathList;
 
     // 是否正在识别
@@ -97,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         showImage = (ImageView)findViewById(R.id.showImage);
+
+        logText = (TextView) findViewById(R.id.logText);
     }
 
     public void startReg(){
@@ -281,10 +285,19 @@ public class MainActivity extends AppCompatActivity {
         dateText.setText(content);
     }
 
+    public String getDateTextView(){
+        return dateText.getText().toString();
+    }
+
     public void  setImage(int index){
         currentCompareImageIndex = index;
         Glide.with(MainActivity.this).
                 load(imagePathList.get(index)).into(showImage);
+    }
+
+
+    public void  setLogText(String content){
+        logText.setText(content);
     }
 }
 

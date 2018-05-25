@@ -77,6 +77,15 @@
                 android:layout_height="300dp"
                 android:layout_centerHorizontal="true"
                 android:scaleType="centerInside"
+                android:background="@color/red"
+                />
+
+            <TextView
+                android:id="@+id/logText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/red"
                 />
         </com.zhy.android.percent.support.PercentRelativeLayout>
     </LinearLayout>
