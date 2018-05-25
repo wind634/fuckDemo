@@ -12,7 +12,7 @@ import java.util.TimerTask;
  */
 
 public class CompareTask extends TimerTask  {
-    private final String TAG = "CompareTask";
+    private final String TAG = SysConfig.COMPARE_TAG;
 
     private MainActivity context;
     private int currentIndex = 0;
@@ -38,14 +38,17 @@ public class CompareTask extends TimerTask  {
         long currentTime = System.currentTimeMillis();
         long compareTime = System.currentTimeMillis();
         boolean hasCompare = false;
+        float score =-1;
         while ((compareTime - currentTime)/1000 < SysConfig.CompareSustainedTime) {
             compareTime = System.currentTimeMillis();
             // 开始进行比对
-            hasCompare = context.startToCompare();
-            if(hasCompare){
+            score = context.startToCompare();
+            if(score>0){
+                hasCompare = true;
                 break;
             }
         }
+        context.addRecord2Excel(score);
 
 
         context.runOnUiThread(new Runnable() {

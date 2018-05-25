@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.dotpix.fuckdemo.R;
 import com.dotpix.fuckdemo.common.SysConfig;
 import com.dotpix.fuckdemo.fragment.Camera2BasicFragment;
+import com.dotpix.fuckdemo.model.Record;
 import com.dotpix.fuckdemo.tasks.CompareTask;
 import com.dotpix.fuckdemo.tasks.SwitchImageTask;
 import com.dotpix.fuckdemo.utils.ExcelHelper;
@@ -275,22 +276,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public boolean startToCompare( ) {
+    public float startToCompare( ) {
         Log.i(TAG, "startToCompare....");
-//        Record record =new Record();
         // 说明底库图片无人脸
         if(currentComparedBitmapFeature==null) {
             Log.i(TAG, "底库图片无人脸 endToCompare....");
-            return  true;
+            return  -1;
         }else{
             // 说明照相机未抓拍到人脸
             if(currentFaceBitmapFeature==null){
                 Log.i(TAG, "endToCompare....");
-                return false;
+                return -2;
             }else {
                 Float score = faceKit.compareScore(currentFaceBitmapFeature, currentComparedBitmapFeature);
                 Log.i(TAG, "endToCompare....");
-                return true;
+                return score;
             }
         }
 
@@ -335,5 +335,14 @@ public class MainActivity extends AppCompatActivity {
         logText.setTextColor(getResources().getColor(R.color.colorBlue));
         logText.setText(content);
     }
+
+
+    public void  addRecord2Excel(float score){
+        Record record = new Record();
+        record.setImageName(imagePathList.get(currentCompareImageIndex));
+
+        ExcelHelper.addRecord2Excel(currentExcelName, record);
+    }
+
 }
 

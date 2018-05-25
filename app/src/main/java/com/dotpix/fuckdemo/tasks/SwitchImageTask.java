@@ -12,7 +12,7 @@ import java.util.TimerTask;
 
 public class SwitchImageTask extends TimerTask{
 
-    private final String TAG = "SwitchImageTask";
+    private final String TAG = SysConfig.COMPARE_TAG;
 
     private MainActivity context;
 

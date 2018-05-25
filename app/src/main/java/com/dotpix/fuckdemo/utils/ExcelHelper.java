@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 /**
@@ -21,6 +23,8 @@ import jxl.write.WritableWorkbook;
 
 public class ExcelHelper {
     public static final String TAG = "ExcelHelper";
+
+    public static final int CLOUMN_SIZE = 3;
 
     @SuppressLint("SimpleDateFormat")
     public static SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy_MM_dd_HHmmss");
@@ -41,11 +45,19 @@ public class ExcelHelper {
 
             os = new FileOutputStream(SysConfig.resultDestDir + "/" + excelName);
             wwb = Workbook.createWorkbook(os);
-            wwb.createSheet("人脸比对结果表格", 0);
+            WritableSheet sheet = wwb.createSheet("人脸比对结果表格", 0);
+
+//            for (int i = 0; i < 3; i++) {
+//                // Label(x,y,z) 代表单元格的第x+1列，第y+1行, 内容z
+//                // 在Label对象的子对象中指明单元格的位置和内容
+            Label  label = new Label(0, 0, "id");
+                // 将定义好的单元格添加到工作表中
+            sheet.addCell(label);
+//            }
             wwb.write();
         }catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, e.toString());
+            Log.e(SysConfig.ERROR_TAG, e.toString());
         }finally {
             try {
                 if(wwb!=null) {
@@ -58,6 +70,35 @@ public class ExcelHelper {
     }
 
     public static void  addRecord2Excel(String excelName, Record record) {
+        Workbook wwb=null;
+        WritableWorkbook book =null;
+        File file = null;
+        try {
+            file = new File(SysConfig.resultDestDir + "/" + excelName);
+            wwb = Workbook.getWorkbook(file);
+            book = Workbook.createWorkbook(file, wwb);
+            WritableSheet sheet = book.getSheet(0);
 
+            int size = sheet.getRows();
+            // 先写入id
+            Label  label = new Label(0, size, String.valueOf(size));
+            sheet.addCell(label);
+
+            book.write();
+        }catch (Exception e) {
+            e.printStackTrace();
+            Log.e(SysConfig.ERROR_TAG, e.toString());
+        }finally {
+            try {
+                if(wwb!=null) {
+                    wwb.close();
+                }
+                if(book!=null) {
+                    book.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

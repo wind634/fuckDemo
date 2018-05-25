@@ -8,6 +8,10 @@ import android.os.Environment;
 
 public class SysConfig {
 
+    public static String COMPARE_TAG = "FuckLog";
+
+    public static String ERROR_TAG = "ErrorLog";
+
     // 空闲时图像抓拍间隔 1 ms 毫秒为单位
     public static int WaitFacePictureInvertalTime = 300;
 
@@ -20,7 +24,7 @@ public class SysConfig {
     public static float CompareImageDelayTime = 2f;
 
     // 比对持续时长
-    public static float CompareSustainedTime = 1.f;
+    public static float CompareSustainedTime = 1.5f;
 
     // 待比对图片存放的路径
     public static String compareImageDir = Environment.getExternalStorageDirectory() +  "/compareDir";
