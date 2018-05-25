@@ -5,6 +5,7 @@ import android.widget.Toast;
 import com.dotpix.fuckdemo.activity.MainActivity;
 import com.dotpix.fuckdemo.common.SysConfig;
 
+import java.util.Timer;
 import java.util.TimerTask;
 
 /**
@@ -20,8 +21,10 @@ public class SwitchImageTask extends TimerTask{
     private int cnt = 0;
     private int imageCount = 0;
 
+    private Timer timer;
     public SwitchImageTask(MainActivity context){
         this.context = context;
+        timer = new Timer();
     }
 
 
@@ -44,6 +47,11 @@ public class SwitchImageTask extends TimerTask{
                  if(cnt % SysConfig.SwitchImageInvertalTime ==0){
                      if(imageCount != MainActivity.imagePathList.size()-1) {
                          imageCount++;
+
+                         CompareTask compareTask = new CompareTask(context, imageCount);
+                         timer.schedule(compareTask, (long) (SysConfig.CompareImageDelayTime * 1000));
+
+
                          Toast.makeText(context, "切换到第" + (imageCount+1) +"张图片", Toast.LENGTH_SHORT).show();
                          context.setImage(imageCount);
                      }else{

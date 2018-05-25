@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.dotpix.fuckdemo.R;
+import com.dotpix.fuckdemo.common.SysConfig;
 import com.dotpix.fuckdemo.fragment.Camera2BasicFragment;
 import com.dotpix.fuckdemo.model.Record;
 import com.dotpix.fuckdemo.tasks.CompareTask;
@@ -110,8 +111,9 @@ public class MainActivity extends AppCompatActivity {
         switchImageTask = new SwitchImageTask(MainActivity.this);
         timer.schedule(switchImageTask,0,1000);
 
-        compareTask = new CompareTask();
-        timer.schedule(compareTask,1000);
+        compareTask = new CompareTask(MainActivity.this, 0);
+        timer.schedule(compareTask, (long) (SysConfig.CompareImageDelayTime * 1000));
+
     }
 
     public void endReg(){
@@ -265,6 +267,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "startToCompare....");
         Record record =new Record();
 
+        Log.i(TAG, "endToCompare....");
     }
 
     @Override

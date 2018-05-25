@@ -23,7 +23,7 @@ public class ExcelHelper {
     public static final String TAG = "ExcelHelper";
 
     @SuppressLint("SimpleDateFormat")
-    public static SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy_MM_dd_HHmmss");
 
     public static String  createExcelFileName() {
         String excelName = formatter1.format(new Date()) + "_" + SysConfig.resultDestFileName;
