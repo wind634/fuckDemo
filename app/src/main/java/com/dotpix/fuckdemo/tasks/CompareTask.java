@@ -1,6 +1,9 @@
 package com.dotpix.fuckdemo.tasks;
 
+import android.widget.Toast;
+
 import com.dotpix.fuckdemo.activity.MainActivity;
+import com.dotpix.fuckdemo.common.SysConfig;
 
 import java.util.TimerTask;
 
@@ -13,7 +16,10 @@ public class CompareTask extends TimerTask{
     private final String TAG = "CompareTask";
 
     private MainActivity context;
+
     private int cnt = 0;
+    private int imageCount = 0;
+
     public CompareTask(MainActivity context){
         this.context = context;
     }
@@ -33,7 +39,20 @@ public class CompareTask extends TimerTask{
                  String minutesStr = String.format("%02d", minutes);
                  String secondsStr = String.format("%02d", seconds);
                  context.setDateTextView(hoursStr + ":" + minutesStr + ":" + secondsStr);
-//                 textView.setText(getStringTime(cnt++));
+
+
+                 if(cnt % SysConfig.SwitchImageInvertalTime ==0){
+                     if(imageCount != MainActivity.imagePathList.size()) {
+                         Toast.makeText(context, "切换第" + imageCount +"张图片", Toast.LENGTH_SHORT).show();
+                         context.setImage(imageCount);
+                         imageCount++;
+                     }else{
+                         Toast.makeText(context, "图片比对完成", Toast.LENGTH_SHORT).show();
+                         context.endReg();
+                     }
+
+                 }
+
              }
         });
     }

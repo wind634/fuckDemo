@@ -7,12 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dotpix.fuckdemo.R;
 import com.dotpix.fuckdemo.fragment.Camera2BasicFragment;
 import com.dotpix.fuckdemo.tasks.CompareTask;
+import com.dotpix.fuckdemo.utils.ImageHelper;
 import com.dotpix.fuckdemo.utils.LightHelper;
 import com.dotpix.fuckdemo.widget.GridFocusFaceView;
 import com.dyhdyh.widget.loading.dialog.LoadingDialog;
@@ -21,6 +24,7 @@ import com.pixtalks.facekitsdk.FaceKit;
 import com.pixtalks.facekitsdk.PConfig;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private Dialog initDialog;
     private Button startCompareBtn;
     private TextView dateText;
+    private ImageView showImage;
+    public static List<String> imagePathList;
 
     // 是否正在识别
     private boolean isReg=false;
@@ -53,7 +59,9 @@ public class MainActivity extends AppCompatActivity {
         timer = new Timer();
         initView();
 
-       initFaceKit();
+        initFaceKit();
+
+        imagePathList = ImageHelper.getImagePathFromSD();
 
     }
 
@@ -79,9 +87,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        showImage = (ImageView)findViewById(R.id.showImage);
     }
-    private void startReg(){
+
+    public void startReg(){
         startCompareBtn.setText("停止识别");
         isReg = true;
         compareTask = new CompareTask(MainActivity.this);
@@ -89,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void endReg(){
+    public void endReg(){
         startCompareBtn.setText("开始识别");
         isReg = false;
         if (!compareTask.cancel()){
@@ -254,6 +263,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void setDateTextView(String content){
         dateText.setText(content);
+    }
+
+    public void  setImage(int index){
+        Glide.with(MainActivity.this).
+                load(imagePathList.get(index)).into(showImage);
     }
 }
 

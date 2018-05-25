@@ -1,5 +1,7 @@
 package com.dotpix.fuckdemo.common;
 
+import android.os.Environment;
+
 /**
  * Created by wangjiang on 2018/5/22.
  */
@@ -10,4 +12,13 @@ public class SysConfig {
     public static int WaitFacePictureInvertalTime = 300;
 
 
+    // 每隔几秒切换一张图片
+    public static int SwitchImageInvertalTime = 5;
+
+
+    // 周期内的第几秒开始进行比对
+    public static float CompareImageDelayTime = 2.5f;
+
+    // 待比对图片存放的路径
+    public static String compareImageDir = Environment.getExternalStorageDirectory() +  "/compareDir";
 }
