@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         startCompareBtn.setText("停止识别");
         imagePathList = ImageHelper.getImagePathFromSD();
         setImage(0);
+        setLogText(getDateTextView() + "   " + "切换到第" + 0 +"张图片");
         isReg = true;
 
         currentExcelName = ExcelHelper.createExcelFileName();
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         }
         setDateTextView("00:00:00");
         showImage.setImageDrawable(null);
+        logText.setText("未开始比对");
 
     }
 

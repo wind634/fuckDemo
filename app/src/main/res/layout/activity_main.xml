@@ -56,6 +56,8 @@
                 android:text="开始比对"
                 android:layout_centerHorizontal="true"
                 android:textSize="18sp"
+                android:paddingLeft="10dp"
+                android:paddingEnd="10dp"
                 />
 
             <TextView
@@ -65,14 +67,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:text="00:00:00"
                 />
 
             <ImageView
                 android:id="@+id/showImage"
                 android:layout_below="@id/dateText"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:layout_centerHorizontal="true"
