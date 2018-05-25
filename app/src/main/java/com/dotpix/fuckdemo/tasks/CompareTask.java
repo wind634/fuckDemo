@@ -31,12 +31,21 @@ public class CompareTask extends TimerTask  {
             @Override
             public void run() {
 //                Toast.makeText(context, "开始进行第" + (currentIndex + 1)+"张的人脸比对", Toast.LENGTH_SHORT).show();
-
                 context.setBlueLogText(context.getDateTextView() + "   " + "开始进行第" + (currentIndex + 1)+"张的人脸比对");
             }
         });
 
-//        currentIndex
+
+        // 开始进行比对
+        context.startToCompare(currentIndex);
+
+        context.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+//                Toast.makeText(context, "结束进行第" + (currentIndex + 1)+"张的人脸比对", Toast.LENGTH_SHORT).show();
+                context.setBlueLogText(context.getDateTextView() + "   " + "结束进行第" + (currentIndex + 1)+"张的人脸比对");
+            }
+        });
 
     }
 

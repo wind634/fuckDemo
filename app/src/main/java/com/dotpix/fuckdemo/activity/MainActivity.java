@@ -2,6 +2,7 @@ package com.dotpix.fuckdemo.activity;
 
 import android.app.Dialog;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.dotpix.fuckdemo.R;
 import com.dotpix.fuckdemo.common.SysConfig;
 import com.dotpix.fuckdemo.fragment.Camera2BasicFragment;
-import com.dotpix.fuckdemo.model.Record;
 import com.dotpix.fuckdemo.tasks.CompareTask;
 import com.dotpix.fuckdemo.tasks.SwitchImageTask;
 import com.dotpix.fuckdemo.utils.ExcelHelper;
@@ -57,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
     private String currentExcelName = "";
 
     private Bitmap currentFaceBitmap = null;
-    private ArrayList<DetectResult>  currentFaceBitmapResult = null;
+    private float[]  currentFaceBitmapFeature = null;
+
+    private float[] currentComparedBitmapFeature = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +110,10 @@ public class MainActivity extends AppCompatActivity {
         imagePathList = ImageHelper.getImagePathFromSD();
         setImage(0);
         setRedLogText(getDateTextView() + "   " + "切换到第" + 0 +"张图片");
+
+        compareTask = new CompareTask(MainActivity.this, 0);
+        timer.schedule(compareTask, (long) (SysConfig.CompareImageDelayTime * 1000));
+
         isReg = true;
 
         currentExcelName = ExcelHelper.createExcelFileName();
@@ -116,8 +122,7 @@ public class MainActivity extends AppCompatActivity {
         switchImageTask = new SwitchImageTask(MainActivity.this);
         timer.schedule(switchImageTask,0,1000);
 
-        compareTask = new CompareTask(MainActivity.this, 0);
-        timer.schedule(compareTask, (long) (SysConfig.CompareImageDelayTime * 1000));
+
 
     }
 
@@ -266,14 +271,21 @@ public class MainActivity extends AppCompatActivity {
     public void setCurrentFaceData(final Bitmap cameraBitmap, final ArrayList<DetectResult> cameraBitmapResult) {
         Log.i(TAG, "setCurrentFaceData....");
         this.currentFaceBitmap = cameraBitmap;
-        this.currentFaceBitmapResult= cameraBitmapResult;
+        this.currentFaceBitmapFeature = faceKit.getFeatureByDetectResult(cameraBitmap, cameraBitmapResult.get(0));
+
     }
 
-    public void startToCompare(int index ) {
+    public Float startToCompare( ) {
         Log.i(TAG, "startToCompare....");
-        Record record =new Record();
-
+//        Record record =new Record();
+        Float score = null;
+        if(currentComparedBitmapFeature==null) {
+            score = null;
+        }else{
+            score = faceKit.compareScore(currentFaceBitmapFeature, currentComparedBitmapFeature);
+        }
         Log.i(TAG, "endToCompare....");
+        return score;
     }
 
     @Override
@@ -295,6 +307,14 @@ public class MainActivity extends AppCompatActivity {
         currentCompareImageIndex = index;
         Glide.with(MainActivity.this).
                 load(imagePathList.get(index)).into(showImage);
+        Bitmap compareImageBitmap = BitmapFactory.decodeFile(imagePathList.get(index));
+        ArrayList<DetectResult>  compareImageResult = faceKit.detectFace(compareImageBitmap);
+        if(compareImageResult!=null){
+            currentComparedBitmapFeature = faceKit.getFeatureByDetectResult(compareImageBitmap, compareImageResult.get(0));
+        }else {
+            currentComparedBitmapFeature = null;
+        }
+
     }
 
 
