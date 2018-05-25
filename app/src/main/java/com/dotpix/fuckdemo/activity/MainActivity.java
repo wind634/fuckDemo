@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer;
 
     private int currentCompareImageIndex = 0;
+    private String currentExcelName = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
         setImage(0);
         isReg = true;
 
+        currentExcelName = ExcelHelper.createExcelFileName();
+        ExcelHelper.createExcel(currentExcelName);
+
         compareTask = new CompareTask(MainActivity.this);
         timer.schedule(compareTask,0,1000);
     }
@@ -110,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
         setDateTextView("00:00:00");
         showImage.setImageDrawable(null);
 
-        ExcelHelper.createExcel();
     }
 
     private void initFaceKit(){

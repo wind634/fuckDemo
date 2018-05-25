@@ -1,18 +1,19 @@
 package com.dotpix.fuckdemo.utils;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.dotpix.fuckdemo.common.SysConfig;
+import com.dotpix.fuckdemo.model.Record;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import jxl.Workbook;
-import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
-import jxl.write.WriteException;
 
 /**
  * Created by wangjiang on 2018/5/25.
@@ -21,7 +22,15 @@ import jxl.write.WriteException;
 public class ExcelHelper {
     public static final String TAG = "ExcelHelper";
 
-    public static void  createExcel() {
+    @SuppressLint("SimpleDateFormat")
+    public static SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    public static String  createExcelFileName() {
+        String excelName = formatter1.format(new Date()) + "_" + SysConfig.resultDestFileName;
+        return excelName;
+    }
+
+    public static void  createExcel(String excelName) {
         WritableWorkbook wwb=null;
         OutputStream os = null;
         try {
@@ -30,11 +39,9 @@ public class ExcelHelper {
                 f.mkdir();
             }
 
-            os = new FileOutputStream(SysConfig.resultDestDir + "/" + SysConfig.resultDestFileName);
+            os = new FileOutputStream(SysConfig.resultDestDir + "/" + excelName);
             wwb = Workbook.createWorkbook(os);
-            WritableSheet sheet = wwb.createSheet("订单", 0);
-//            sheet.
-
+            wwb.createSheet("人脸比对结果表格", 0);
             wwb.write();
         }catch (Exception e) {
             e.printStackTrace();
@@ -44,11 +51,13 @@ public class ExcelHelper {
                 if(wwb!=null) {
                     wwb.close();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (WriteException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void  addRecord2Excel(String excelName, Record record) {
+
     }
 }
