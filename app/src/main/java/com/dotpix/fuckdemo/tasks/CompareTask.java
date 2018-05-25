@@ -32,7 +32,7 @@ public class CompareTask extends TimerTask  {
             public void run() {
 //                Toast.makeText(context, "开始进行第" + (currentIndex + 1)+"张的人脸比对", Toast.LENGTH_SHORT).show();
 
-                context.setLogText(context.getDateTextView() + "   " + "开始进行第" + (currentIndex + 1)+"张的人脸比对");
+                context.setBlueLogText(context.getDateTextView() + "   " + "开始进行第" + (currentIndex + 1)+"张的人脸比对");
             }
         });
 

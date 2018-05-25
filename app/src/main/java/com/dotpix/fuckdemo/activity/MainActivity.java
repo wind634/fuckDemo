@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         startCompareBtn.setText("停止识别");
         imagePathList = ImageHelper.getImagePathFromSD();
         setImage(0);
-        setLogText(getDateTextView() + "   " + "切换到第" + 0 +"张图片");
+        setRedLogText(getDateTextView() + "   " + "切换到第" + 0 +"张图片");
         isReg = true;
 
         currentExcelName = ExcelHelper.createExcelFileName();
@@ -298,7 +298,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void  setLogText(String content){
+    public void  setRedLogText(String content){
+        logText.setTextColor(getResources().getColor(R.color.red));
+        logText.setText(content);
+    }
+
+    public void  setBlueLogText(String content){
+        logText.setTextColor(getResources().getColor(R.color.colorBlue));
         logText.setText(content);
     }
 }

@@ -55,12 +55,12 @@ public class SwitchImageTask extends TimerTask{
 
 
 //                         Toast.makeText(context, "切换到第" + (imageCount+1) +"张图片", Toast.LENGTH_SHORT).show();
-                         context.setLogText(timeStr + "   " + "切换到第" + (imageCount+1) +"张图片");
+                         context.setRedLogText(timeStr + "   " + "切换到第" + (imageCount+1) +"张图片");
                          context.setImage(imageCount);
                      }else{
 //                         Toast.makeText(context, "图片比对完成", Toast.LENGTH_SHORT).show();
 
-                         context.setLogText(timeStr + "   " + "图片比对完成");
+                         context.setRedLogText(timeStr + "   " + "图片比对完成");
 
                          if (!compareTask.cancel()){
                              compareTask.cancel();
