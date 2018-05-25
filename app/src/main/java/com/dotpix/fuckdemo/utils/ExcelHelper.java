@@ -1,8 +1,10 @@
 package com.dotpix.fuckdemo.utils;
 
+import android.util.Log;
+
 import com.dotpix.fuckdemo.common.SysConfig;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -17,21 +19,26 @@ import jxl.write.WriteException;
  */
 
 public class ExcelHelper {
+    public static final String TAG = "ExcelHelper";
 
     public static void  createExcel() {
         WritableWorkbook wwb=null;
         OutputStream os = null;
         try {
-            os = new FileOutputStream(SysConfig.resultDestFile);
+            File f = new File(SysConfig.resultDestDir);
+            if(!f.exists()){
+                f.mkdir();
+            }
+
+            os = new FileOutputStream(SysConfig.resultDestDir + "/" + SysConfig.resultDestFileName);
             wwb = Workbook.createWorkbook(os);
             WritableSheet sheet = wwb.createSheet("订单", 0);
 //            sheet.
 
             wwb.write();
-        }catch (FileNotFoundException e) {
-                e.printStackTrace();
-        } catch (IOException e) {
+        }catch (Exception e) {
             e.printStackTrace();
+            Log.e(TAG, e.toString());
         }finally {
             try {
                 if(wwb!=null) {

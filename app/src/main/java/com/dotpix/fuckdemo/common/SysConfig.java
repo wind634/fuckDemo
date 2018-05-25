@@ -23,5 +23,6 @@ public class SysConfig {
     public static String compareImageDir = Environment.getExternalStorageDirectory() +  "/compareDir";
 
     // 比对结果路径
-    public static String resultDestFile = Environment.getExternalStorageDirectory() +  "/destDir/result.xls";
+    public static String resultDestDir = Environment.getExternalStorageDirectory() +  "/destDir";
+    public static String resultDestFileName= "result.xls";
 }
