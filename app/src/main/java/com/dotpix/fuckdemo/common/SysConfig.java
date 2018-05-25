@@ -21,4 +21,7 @@ public class SysConfig {
 
     // 待比对图片存放的路径
     public static String compareImageDir = Environment.getExternalStorageDirectory() +  "/compareDir";
+
+    // 比对结果路径
+    public static String resultDestFile = Environment.getExternalStorageDirectory() +  "/destDir/result.xls";
 }

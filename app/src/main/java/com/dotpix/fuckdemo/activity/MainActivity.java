@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.dotpix.fuckdemo.R;
 import com.dotpix.fuckdemo.fragment.Camera2BasicFragment;
 import com.dotpix.fuckdemo.tasks.CompareTask;
+import com.dotpix.fuckdemo.utils.ExcelHelper;
 import com.dotpix.fuckdemo.utils.ImageHelper;
 import com.dotpix.fuckdemo.utils.LightHelper;
 import com.dotpix.fuckdemo.widget.GridFocusFaceView;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private  CompareTask compareTask;
     private Timer timer;
 
+    private int currentCompareImageIndex = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,10 +93,11 @@ public class MainActivity extends AppCompatActivity {
     public void startReg(){
         startCompareBtn.setText("停止识别");
         imagePathList = ImageHelper.getImagePathFromSD();
+        setImage(0);
         isReg = true;
+
         compareTask = new CompareTask(MainActivity.this);
         timer.schedule(compareTask,0,1000);
-
     }
 
     public void endReg(){
@@ -105,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
             timer.cancel();
         }
         setDateTextView("00:00:00");
+        showImage.setImageDrawable(null);
+
+        ExcelHelper.createExcel();
     }
 
     private void initFaceKit(){
@@ -265,6 +271,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void  setImage(int index){
+        currentCompareImageIndex = index;
         Glide.with(MainActivity.this).
                 load(imagePathList.get(index)).into(showImage);
     }
