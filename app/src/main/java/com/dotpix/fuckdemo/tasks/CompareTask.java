@@ -44,7 +44,7 @@ public class CompareTask extends TimerTask  {
         });
         long currentTime = System.currentTimeMillis();
         long compareTime = System.currentTimeMillis();
-        String compareDate = "";
+        String compareDate = "未比对";
         boolean hasCompare = false;
         float score =-1;
         while ((compareTime - currentTime)/1000 < SysConfig.CompareSustainedTime) {
@@ -65,7 +65,9 @@ public class CompareTask extends TimerTask  {
         record.setCompareImageName(imageName);
         record.setCompareImagePath(MainActivity.imagePathList.get(MainActivity.currentCompareImageIndex));
         record.setFaceImagePath(context.saveFaceBitmap());
-        record.setScore(score);
+        if(score>0) {
+            record.setScore(score);
+        }
         record.setCompareTime(compareDate);
         if(hasCompare==false && score == -1) {
             record.setExt("比对图片没有人脸");
