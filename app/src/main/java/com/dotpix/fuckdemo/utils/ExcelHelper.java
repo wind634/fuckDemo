@@ -47,13 +47,29 @@ public class ExcelHelper {
             wwb = Workbook.createWorkbook(os);
             WritableSheet sheet = wwb.createSheet("人脸比对结果表格", 0);
 
-//            for (int i = 0; i < 3; i++) {
-//                // Label(x,y,z) 代表单元格的第x+1列，第y+1行, 内容z
-//                // 在Label对象的子对象中指明单元格的位置和内容
-            Label  label = new Label(0, 0, "id");
-                // 将定义好的单元格添加到工作表中
-            sheet.addCell(label);
-//            }
+
+            Label  label1 = new Label(0, 0, "序号");
+            // 将定义好的单元格添加到工作表中
+            sheet.addCell(label1);
+
+            Label  label2 = new Label(1, 0, "compare比对的图片名称");
+            sheet.addCell(label2);
+
+            Label  label3 = new Label(2, 0, "compare比对的图片路径");
+            sheet.addCell(label3);
+
+            Label  label4 = new Label(3, 0, "抓拍的人脸图像路径");
+            sheet.addCell(label4);
+
+            Label  label5 = new Label(4, 0, "比对得分");
+            sheet.addCell(label5);
+
+            Label  label6 = new Label(5, 0, "比对时间");
+            sheet.addCell(label6);
+
+            Label  label7 = new Label(6, 0, "备注");
+            sheet.addCell(label7);
+
             wwb.write();
         }catch (Exception e) {
             e.printStackTrace();
@@ -81,8 +97,26 @@ public class ExcelHelper {
 
             int size = sheet.getRows();
             // 先写入id
-            Label  label = new Label(0, size, String.valueOf(size));
-            sheet.addCell(label);
+            Label  label1 = new Label(0, size, String.valueOf(size));
+            sheet.addCell(label1);
+
+            Label  label2 = new Label(1, size, record.getCompareImageName());
+            sheet.addCell(label2);
+
+            Label  label3 = new Label(2, size, record.getCompareImagePath());
+            sheet.addCell(label3);
+
+            Label  label4 = new Label(3, size, record.getFaceImagePath());
+            sheet.addCell(label4);
+
+            Label  label5 = new Label(4, size, String.valueOf(record.getScore()));
+            sheet.addCell(label5);
+
+            Label  label6 = new Label(5, size, record.getCompareTime());
+            sheet.addCell(label6);
+
+            Label  label7 = new Label(6, size, record.getExt());
+            sheet.addCell(label7);
 
             book.write();
         }catch (Exception e) {

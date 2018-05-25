@@ -1,10 +1,15 @@
 package com.dotpix.fuckdemo.utils;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.os.Environment;
 
 import com.dotpix.fuckdemo.common.SysConfig;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,4 +66,41 @@ public class ImageHelper {
         return isImageFile;
     }
 
+
+    public static String saveBitmapToPath(Bitmap bitmap, String fileName) {
+        if (bitmap == null) {
+            return "";
+        }
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) // 判断是否可以对SDcard进行操作
+        {
+            // 获取SDCard指定目录下
+            String sdCardDir = SysConfig.caputerFaceImageDir;
+            File dirFile = new File(sdCardDir);  //目录转化成文件夹
+            if (!dirFile.exists()) {              //如果不存在，那就建立这个文件夹
+                dirFile.mkdirs();
+            }                          //文件夹有啦，就可以保存图片啦
+
+            String filePath = sdCardDir + "/" + fileName;
+            File file = new File(sdCardDir, filePath);// 在SDcard的目录下创建图片文,以当前时间为其命名
+
+            FileOutputStream out = null;
+            try {
+                out = new FileOutputStream(file);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                System.out.println("_________保存到____sd______指定目录文件夹下____________________");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    out.flush();
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return filePath;
+        }else {
+            return "";
+        }
+    }
 }

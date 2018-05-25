@@ -32,4 +32,7 @@ public class SysConfig {
     // 比对结果路径
     public static String resultDestDir = Environment.getExternalStorageDirectory() +  "/destDir";
     public static String resultDestFileName= "result.xls";
+
+    // 抓拍的图片处理路径
+    public static String caputerFaceImageDir = Environment.getExternalStorageDirectory() +  "/faceDir";
 }

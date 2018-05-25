@@ -1,5 +1,6 @@
 package com.dotpix.fuckdemo.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -28,13 +29,17 @@ import com.pixtalks.detect.DetectResult;
 import com.pixtalks.facekitsdk.FaceKit;
 import com.pixtalks.facekitsdk.PConfig;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+    @SuppressLint("SimpleDateFormat")
+    public static SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy_MM_dd_HHmmss");
 
     public static boolean shouldRunCompare=true;
     public FaceKit faceKit=null;
@@ -54,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private CompareTask compareTask;
     private Timer timer;
 
-    private int currentCompareImageIndex = 0;
+    public static int currentCompareImageIndex = 0;
     private String currentExcelName = "";
 
     private Bitmap currentFaceBitmap = null;
@@ -337,11 +342,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void  addRecord2Excel(float score){
-        Record record = new Record();
-        record.setImageName(imagePathList.get(currentCompareImageIndex));
-
+    public void  addRecord2Excel(Record record){
         ExcelHelper.addRecord2Excel(currentExcelName, record);
+    }
+
+    public String  saveFaceBitmap(){
+        String[] pathList = imagePathList.get(currentCompareImageIndex).split("/");
+        String imageName =  pathList[pathList.length-1];
+        String faceImageName = imageName + formatter2.format(new Date());
+        return ImageHelper.saveBitmapToPath(currentFaceBitmap, faceImageName);
     }
 
 }
