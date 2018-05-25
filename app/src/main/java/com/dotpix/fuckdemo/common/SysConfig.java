@@ -17,7 +17,7 @@ public class SysConfig {
 
 
     // 周期内的第几秒开始进行比对
-    public static float CompareImageDelayTime = 2.5f;
+    public static float CompareImageDelayTime = 2.2f;
 
     // 待比对图片存放的路径
     public static String compareImageDir = Environment.getExternalStorageDirectory() +  "/compareDir";

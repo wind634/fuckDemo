@@ -22,6 +22,8 @@ public class SwitchImageTask extends TimerTask{
     private int imageCount = 0;
 
     private Timer timer;
+    private CompareTask compareTask;
+
     public SwitchImageTask(MainActivity context){
         this.context = context;
         timer = new Timer();
@@ -48,7 +50,7 @@ public class SwitchImageTask extends TimerTask{
                      if(imageCount != MainActivity.imagePathList.size()-1) {
                          imageCount++;
 
-                         CompareTask compareTask = new CompareTask(context, imageCount);
+                         compareTask = new CompareTask(context, imageCount);
                          timer.schedule(compareTask, (long) (SysConfig.CompareImageDelayTime * 1000));
 
 
@@ -56,6 +58,11 @@ public class SwitchImageTask extends TimerTask{
                          context.setImage(imageCount);
                      }else{
                          Toast.makeText(context, "图片比对完成", Toast.LENGTH_SHORT).show();
+
+                         if (!compareTask.cancel()){
+                             compareTask.cancel();
+                             timer.cancel();
+                         }
                          context.endReg();
                      }
 
