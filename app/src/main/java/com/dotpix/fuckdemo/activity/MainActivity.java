@@ -1,20 +1,27 @@
 package com.dotpix.fuckdemo.activity;
 
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.dotpix.fuckdemo.R;
 import com.dotpix.fuckdemo.fragment.Camera2BasicFragment;
+import com.dotpix.fuckdemo.tasks.CompareTask;
 import com.dotpix.fuckdemo.utils.LightHelper;
 import com.dotpix.fuckdemo.widget.GridFocusFaceView;
+import com.dyhdyh.widget.loading.dialog.LoadingDialog;
 import com.pixtalks.detect.DetectResult;
 import com.pixtalks.facekitsdk.FaceKit;
 import com.pixtalks.facekitsdk.PConfig;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
     public FaceKit faceKit=null;
     private GridFocusFaceView redFace;
     private RelativeLayout layout_frame;
+    private Dialog initDialog;
+    private Button startCompareBtn;
+    private TextView dateText;
+
+    // 是否正在识别
+    private boolean isReg=false;
+    private  CompareTask compareTask;
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,31 +49,85 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.container, Camera2BasicFragment.newInstance())
                     .commit();
         }
+
+        timer = new Timer();
         initView();
 
-        /**
-         * 示例代码
-         */
+       initFaceKit();
 
-        faceKit = new FaceKit(MainActivity.this);
-        PConfig.detectInSizeLevel = 2;
-        faceKit.setFaceArgs(1.5f, 1.7f);
-        faceKit.setAuth("ShangHai_Inner_Test_74543234", "T20_73452342344343");
-        // 初始化模型
-        long begin = System.currentTimeMillis();
-        int ret = faceKit.initModel();
-        Log.e(PConfig.projectLogTag, "Load model use time " + (System.currentTimeMillis() - begin));
-        if (ret != PConfig.okCode) {
-            Log.e(PConfig.projectLogTag, "Fail to load model with " + ret);
-            return;
-        }
     }
 
     private void initView(){
         redFace = (GridFocusFaceView) findViewById(R.id.redFace);
         layout_frame = (RelativeLayout) findViewById(R.id.layout_frame);
+        initDialog = LoadingDialog.make(MainActivity.this)
+                .setMessage("正在初始化中")//提示消息
+                .setCancelable(true)
+                .create();
+        initDialog.show();
+        startCompareBtn = (Button)findViewById(R.id.startCompare);
+        dateText = (TextView) findViewById(R.id.dateText);
+
+        startCompareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!isReg) {
+                    startReg();
+                }else {
+                    endReg();
+                }
+            }
+        });
+
 
     }
+    private void startReg(){
+        startCompareBtn.setText("停止识别");
+        isReg = true;
+        compareTask = new CompareTask(MainActivity.this);
+        timer.schedule(compareTask,0,1000);
+
+    }
+
+    private void endReg(){
+        startCompareBtn.setText("开始识别");
+        isReg = false;
+        if (!compareTask.cancel()){
+            compareTask.cancel();
+            timer.cancel();
+        }
+        setDateTextView("00:00:00");
+    }
+
+    private void initFaceKit(){
+        /**
+         * 示例代码
+         */
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                faceKit = new FaceKit(MainActivity.this);
+                PConfig.detectInSizeLevel = 2;
+                faceKit.setFaceArgs(1.5f, 1.7f);
+                faceKit.setAuth("ShangHai_Inner_Test_74543234", "T20_73452342344343");
+                // 初始化模型
+                long begin = System.currentTimeMillis();
+                int ret = faceKit.initModel();
+                Log.e(PConfig.projectLogTag, "Load model use time " + (System.currentTimeMillis() - begin));
+                if (ret != PConfig.okCode) {
+                    Log.e(PConfig.projectLogTag, "Fail to load model with " + ret);
+                    return;
+                }
+                if(initDialog!=null) {
+                    initDialog.cancel();
+                }
+            }
+        }).start();
+
+    }
+
+
     /**
      *    获取头像是否有人脸
      * @param bitmap
@@ -175,5 +244,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
+
+    public void setDateTextView(String content){
+        dateText.setText(content);
+    }
 }
 
