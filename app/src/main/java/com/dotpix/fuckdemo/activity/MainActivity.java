@@ -61,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
         initFaceKit();
 
-        imagePathList = ImageHelper.getImagePathFromSD();
-
     }
 
     private void initView(){
@@ -92,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void startReg(){
         startCompareBtn.setText("停止识别");
+        imagePathList = ImageHelper.getImagePathFromSD();
         isReg = true;
         compareTask = new CompareTask(MainActivity.this);
         timer.schedule(compareTask,0,1000);

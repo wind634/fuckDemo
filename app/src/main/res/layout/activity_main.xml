@@ -72,9 +72,11 @@
             <ImageView
                 android:id="@+id/showImage"
                 android:layout_below="@id/dateText"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_marginTop="50dp"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
                 android:background="@color/red"
+                android:layout_centerHorizontal="true"
                 />
         </com.zhy.android.percent.support.PercentRelativeLayout>
     </LinearLayout>
