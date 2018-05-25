@@ -3,6 +3,7 @@ package com.dotpix.fuckdemo.tasks;
 import android.util.Log;
 
 import com.dotpix.fuckdemo.activity.MainActivity;
+import com.dotpix.fuckdemo.common.SysConfig;
 
 import java.util.TimerTask;
 
@@ -34,10 +35,18 @@ public class CompareTask extends TimerTask  {
                 context.setBlueLogText(context.getDateTextView() + "   " + "开始进行第" + (currentIndex + 1)+"张的人脸比对");
             }
         });
+        long currentTime = System.currentTimeMillis();
+        long compareTime = System.currentTimeMillis();
+        boolean hasCompare = false;
+        while ((compareTime - currentTime)/1000 < SysConfig.CompareSustainedTime) {
+            compareTime = System.currentTimeMillis();
+            // 开始进行比对
+            hasCompare = context.startToCompare();
+            if(hasCompare){
+                break;
+            }
+        }
 
-
-        // 开始进行比对
-        context.startToCompare(currentIndex);
 
         context.runOnUiThread(new Runnable() {
             @Override

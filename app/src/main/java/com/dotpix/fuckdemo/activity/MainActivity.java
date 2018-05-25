@@ -275,17 +275,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public Float startToCompare( ) {
+    public boolean startToCompare( ) {
         Log.i(TAG, "startToCompare....");
 //        Record record =new Record();
-        Float score = null;
+        // 说明底库图片无人脸
         if(currentComparedBitmapFeature==null) {
-            score = null;
+            Log.i(TAG, "底库图片无人脸 endToCompare....");
+            return  true;
         }else{
-            score = faceKit.compareScore(currentFaceBitmapFeature, currentComparedBitmapFeature);
+            // 说明照相机未抓拍到人脸
+            if(currentFaceBitmapFeature==null){
+                Log.i(TAG, "endToCompare....");
+                return false;
+            }else {
+                Float score = faceKit.compareScore(currentFaceBitmapFeature, currentComparedBitmapFeature);
+                Log.i(TAG, "endToCompare....");
+                return true;
+            }
         }
-        Log.i(TAG, "endToCompare....");
-        return score;
+
     }
 
     @Override
