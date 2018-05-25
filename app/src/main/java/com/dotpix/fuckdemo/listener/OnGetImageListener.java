@@ -89,15 +89,6 @@ public class OnGetImageListener implements ImageReader.OnImageAvailableListener 
         buffer.get(bytes);
         image.close();
 
-        // MainActivity2 专用
-//        if(activity instanceof MainActivity2) {
-//            long endRegtime = System.currentTimeMillis();
-//            if ((endRegtime - ((MainActivity2) activity).endRegTime) / 1000 > SysConfig.twoCameraCompareCompleteWaitTime) {
-//                ((MainActivity2) activity).clearAndRestart();
-//            }
-//        }
-        // MainActivity2 专用
-
 
         final Bitmap mRGBframeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 
@@ -110,9 +101,8 @@ public class OnGetImageListener implements ImageReader.OnImageAvailableListener 
             } else {
                 hasFace = true;
                 Log.i(TAG, "hasFace:" + hasFace);
-                // 如果检测到人脸, 则启动进行人脸比对
-
-                activity.startThreadToCompare(mRGBframeBitmap, result);
+                // 如果检测到人脸, 则设置数据
+                activity.setCurrentFaceData(mRGBframeBitmap, result);
             }
         } else {
 

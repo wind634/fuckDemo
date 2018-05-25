@@ -14,7 +14,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.dotpix.fuckdemo.R;
 import com.dotpix.fuckdemo.fragment.Camera2BasicFragment;
+import com.dotpix.fuckdemo.model.Record;
 import com.dotpix.fuckdemo.tasks.CompareTask;
+import com.dotpix.fuckdemo.tasks.SwitchImageTask;
 import com.dotpix.fuckdemo.utils.ExcelHelper;
 import com.dotpix.fuckdemo.utils.ImageHelper;
 import com.dotpix.fuckdemo.utils.LightHelper;
@@ -44,11 +46,15 @@ public class MainActivity extends AppCompatActivity {
 
     // 是否正在识别
     private boolean isReg=false;
-    private  CompareTask compareTask;
+    private SwitchImageTask switchImageTask;
+    private CompareTask compareTask;
     private Timer timer;
 
     private int currentCompareImageIndex = 0;
     private String currentExcelName = "";
+
+    private Bitmap currentFaceBitmap = null;
+    private ArrayList<DetectResult>  currentFaceBitmapResult = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,15 +107,18 @@ public class MainActivity extends AppCompatActivity {
         currentExcelName = ExcelHelper.createExcelFileName();
         ExcelHelper.createExcel(currentExcelName);
 
-        compareTask = new CompareTask(MainActivity.this);
-        timer.schedule(compareTask,0,1000);
+        switchImageTask = new SwitchImageTask(MainActivity.this);
+        timer.schedule(switchImageTask,0,1000);
+
+        compareTask = new CompareTask();
+        timer.schedule(compareTask,1000);
     }
 
     public void endReg(){
         startCompareBtn.setText("开始识别");
         isReg = false;
-        if (!compareTask.cancel()){
-            compareTask.cancel();
+        if (!switchImageTask.cancel()){
+            switchImageTask.cancel();
             timer.cancel();
         }
         setDateTextView("00:00:00");
@@ -245,23 +254,18 @@ public class MainActivity extends AppCompatActivity {
         return faceDetectResults;
     }
 
-    /**
-     * 开始线程
-     * @return
-     */
-    public void startThreadToCompare(final Bitmap cameraBitmap, final ArrayList<DetectResult> cameraBitmapResult) {
-        // 如果没有身份证信息, 则不比对
-//        Log.i(TAG, "startThreadToCompare....");
 
-        // 锁住 currentIdCardInfo 对象
-        // 此处要锁定currentIdCardInfo变量，在读取的时候不能被另个一个线程清理了就尴尬了
-        synchronized (this) {
-            if (faceKit == null) {
-                return;
-            }
-        }
+    public void setCurrentFaceData(final Bitmap cameraBitmap, final ArrayList<DetectResult> cameraBitmapResult) {
+        Log.i(TAG, "setCurrentFaceData....");
+        this.currentFaceBitmap = cameraBitmap;
+        this.currentFaceBitmapResult= cameraBitmapResult;
     }
 
+    public void startToCompare(int index ) {
+        Log.i(TAG, "startToCompare....");
+        Record record =new Record();
+
+    }
 
     @Override
     protected void onDestroy() {
