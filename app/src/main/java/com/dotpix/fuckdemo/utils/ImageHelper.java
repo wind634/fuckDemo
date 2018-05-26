@@ -78,6 +78,7 @@ public class ImageHelper {
             String sdCardDir = SysConfig.caputerFaceImageDir;
             File dirFile = new File(sdCardDir);  //目录转化成文件夹
             if (!dirFile.exists()) {              //如果不存在，那就建立这个文件夹
+                Log.e(SysConfig.COMPARE_TAG, "make faceDir ...." + sdCardDir);
                 dirFile.mkdir();
             }                          //文件夹有啦，就可以保存图片啦
 
@@ -93,8 +94,10 @@ public class ImageHelper {
                 e.printStackTrace();
             } finally {
                 try {
-                    out.flush();
-                    out.close();
+                    if(out!=null) {
+                        out.flush();
+                        out.close();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

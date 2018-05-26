@@ -61,7 +61,7 @@
                 />
 
             <TextView
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:id="@+id/descText"
                 android:layout_below="@id/startCompare"
                 android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
                 />
 
             <TextView
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:id="@+id/dateText"
                 android:layout_below="@id/descText"
                 android:layout_width="wrap_content"
