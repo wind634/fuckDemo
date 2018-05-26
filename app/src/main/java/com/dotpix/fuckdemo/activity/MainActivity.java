@@ -83,13 +83,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // 获取SDCard指定目录下
-        String sdCardDir = SysConfig.caputerFaceImageDir;
-        File dirFile = new File(sdCardDir);  //目录转化成文件夹
+        File dirFile = new File(SysConfig.caputerFaceImageDir);  //目录转化成文件夹
         if (!dirFile.exists()) {              //如果不存在，那就建立这个文件夹
-            Log.e(SysConfig.COMPARE_TAG, "make faceDir ...." + sdCardDir);
+            Log.e(SysConfig.COMPARE_TAG, "make faceDir ...." + SysConfig.caputerFaceImageDir);
             dirFile.mkdir();
         }                          //文件夹有啦，就可以保存图片啦
 
+        File compareImageDir = new File(SysConfig.compareImageDir);
+        if(!compareImageDir.exists()){
+            compareImageDir.mkdir();
+        }
 
         timer = new Timer();
         initView();

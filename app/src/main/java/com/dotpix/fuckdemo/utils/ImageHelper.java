@@ -31,9 +31,6 @@ public class ImageHelper {
 
         // 得到该路径文件夹下所有的文件
         File fileAll = new File(SysConfig.compareImageDir);
-        if(!fileAll.exists()){
-            fileAll.mkdir();
-        }
 
         File[] files = fileAll.listFiles();
         // 将所有的文件存入ArrayList中,并过滤所有图片格式的文件
