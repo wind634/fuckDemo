@@ -145,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         setDateTextView("00:00:00");
         showImage.setImageDrawable(null);
         logText.setText("未开始比对");
+        descText.setText("处理完成");
 
     }
 

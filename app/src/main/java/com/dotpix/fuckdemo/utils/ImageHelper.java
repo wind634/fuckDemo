@@ -81,14 +81,7 @@ public class ImageHelper {
             }                          //文件夹有啦，就可以保存图片啦
 
             String filePath = sdCardDir + "/" + fileName;
-            File file = new File(sdCardDir, filePath);// 在SDcard的目录下创建图片文,以当前时间为其命名
-            if(!file.exists()){
-                try {
-                    file.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            File file = new File(filePath);// 在SDcard的目录下创建图片文,以当前时间为其命名
             FileOutputStream out = null;
             try {
                 out = new FileOutputStream(file);
