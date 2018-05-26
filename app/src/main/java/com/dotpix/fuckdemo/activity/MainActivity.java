@@ -94,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
             compareImageDir.mkdir();
         }
 
+        File resultDir = new File(SysConfig.resultDestDir);
+        if(!resultDir.exists()){
+            resultDir.mkdir();
+        }
+
         timer = new Timer();
         initView();
 
