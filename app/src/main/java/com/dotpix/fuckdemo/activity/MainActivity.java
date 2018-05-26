@@ -366,5 +366,11 @@ public class MainActivity extends AppCompatActivity {
         return ImageHelper.saveBitmapToPath(currentFaceBitmap, faceImageName);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LightHelper.closeLight();
+    }
 }
+
 

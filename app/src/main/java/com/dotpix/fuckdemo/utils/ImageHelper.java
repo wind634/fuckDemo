@@ -3,6 +3,7 @@ package com.dotpix.fuckdemo.utils;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Environment;
+import android.util.Log;
 
 import com.dotpix.fuckdemo.common.SysConfig;
 
@@ -82,6 +83,7 @@ public class ImageHelper {
 
             String filePath = sdCardDir + "/" + fileName;
             File file = new File(filePath);// 在SDcard的目录下创建图片文,以当前时间为其命名
+            Log.e(SysConfig.COMPARE_TAG, "save file ...:" + filePath);
             FileOutputStream out = null;
             try {
                 out = new FileOutputStream(file);
