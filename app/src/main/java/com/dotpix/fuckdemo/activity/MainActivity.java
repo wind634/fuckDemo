@@ -164,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void endReg(){
+        currentFaceBitmap=null;
+        currentFaceBitmapFeature=null;
         startCompareBtn.setText("开始识别");
         isReg = false;
         if (!switchImageTask.cancel()){
