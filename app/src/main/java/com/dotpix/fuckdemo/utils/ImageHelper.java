@@ -82,7 +82,13 @@ public class ImageHelper {
 
             String filePath = sdCardDir + "/" + fileName;
             File file = new File(sdCardDir, filePath);// 在SDcard的目录下创建图片文,以当前时间为其命名
-
+            if(!file.exists()){
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             FileOutputStream out = null;
             try {
                 out = new FileOutputStream(file);

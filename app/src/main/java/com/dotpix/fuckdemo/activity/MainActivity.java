@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setCurrentFaceData(final Bitmap cameraBitmap, final ArrayList<DetectResult> cameraBitmapResult) {
         Log.i(TAG, "setCurrentFaceData....");
-        Bitmap cropBitmap = ImageHelper.cropBitmapFunc(cameraBitmap, cameraBitmapResult.get(2).getBox());
+        Bitmap cropBitmap = ImageHelper.cropBitmapFunc(cameraBitmap, cameraBitmapResult.get(0).getBox());
         if(cropBitmap!=null){
             this.currentFaceBitmap = cropBitmap;
         } else {
