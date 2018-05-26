@@ -29,6 +29,7 @@ import com.pixtalks.detect.DetectResult;
 import com.pixtalks.facekitsdk.FaceKit;
 import com.pixtalks.facekitsdk.PConfig;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,6 +39,7 @@ import java.util.Timer;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+
     @SuppressLint("SimpleDateFormat")
     public static SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy_MM_dd_HHmmss");
 
@@ -62,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static int currentCompareImageIndex = 0;
     private String currentExcelName = "";
+    private String currentFaceDirName = "";
+
 
     private Bitmap currentFaceBitmap = null;
     private float[]  currentFaceBitmapFeature = null;
@@ -77,6 +81,15 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.container, Camera2BasicFragment.newInstance())
                     .commit();
         }
+
+        // 获取SDCard指定目录下
+        String sdCardDir = SysConfig.caputerFaceImageDir;
+        File dirFile = new File(sdCardDir);  //目录转化成文件夹
+        if (!dirFile.exists()) {              //如果不存在，那就建立这个文件夹
+            Log.e(SysConfig.COMPARE_TAG, "make faceDir ...." + sdCardDir);
+            dirFile.mkdir();
+        }                          //文件夹有啦，就可以保存图片啦
+
 
         timer = new Timer();
         initView();
@@ -125,7 +138,14 @@ public class MainActivity extends AppCompatActivity {
 
         isReg = true;
 
-        currentExcelName = ExcelHelper.createExcelFileName();
+        String batchName = formatter2.format(new Date());
+        currentExcelName = ExcelHelper.createExcelFileName(batchName);
+        currentFaceDirName = batchName + "_face";
+        File file = new File(SysConfig.caputerFaceImageDir + "/" + currentFaceDirName);
+        if(!file.exists()){
+            file.mkdir();
+        }
+
         ExcelHelper.createExcel(currentExcelName);
 
         switchImageTask = new SwitchImageTask(MainActivity.this);
@@ -363,7 +383,7 @@ public class MainActivity extends AppCompatActivity {
         String[] pathList = imagePathList.get(currentCompareImageIndex).split("/");
         String imageName =  pathList[pathList.length-1];
         String faceImageName = "cameraFace_" + formatter2.format(new Date()) + "_____" + imageName;
-        return ImageHelper.saveBitmapToPath(currentFaceBitmap, faceImageName);
+        return ImageHelper.saveBitmapToPath(currentFaceBitmap, currentFaceDirName, faceImageName);
     }
 
     @Override

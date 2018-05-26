@@ -68,21 +68,13 @@ public class ImageHelper {
     }
 
 
-    public static String saveBitmapToPath(Bitmap bitmap, String fileName) {
+    public static String saveBitmapToPath(Bitmap bitmap, String fileParentDirName, String fileName) {
         if (bitmap == null) {
             return "";
         }
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) // 判断是否可以对SDcard进行操作
         {
-            // 获取SDCard指定目录下
-            String sdCardDir = SysConfig.caputerFaceImageDir;
-            File dirFile = new File(sdCardDir);  //目录转化成文件夹
-            if (!dirFile.exists()) {              //如果不存在，那就建立这个文件夹
-                Log.e(SysConfig.COMPARE_TAG, "make faceDir ...." + sdCardDir);
-                dirFile.mkdir();
-            }                          //文件夹有啦，就可以保存图片啦
-
-            String filePath = sdCardDir + "/" + fileName;
+            String filePath = SysConfig.caputerFaceImageDir + "/" + fileParentDirName + "/" +fileName;
             File file = new File(filePath);// 在SDcard的目录下创建图片文,以当前时间为其命名
             Log.e(SysConfig.COMPARE_TAG, "save file ...:" + filePath);
             FileOutputStream out = null;

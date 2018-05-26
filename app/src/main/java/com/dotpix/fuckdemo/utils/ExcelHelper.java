@@ -1,6 +1,5 @@
 package com.dotpix.fuckdemo.utils;
 
-import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.dotpix.fuckdemo.common.SysConfig;
@@ -9,8 +8,6 @@ import com.dotpix.fuckdemo.model.Record;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import jxl.Workbook;
 import jxl.write.Label;
@@ -26,11 +23,9 @@ public class ExcelHelper {
 
     public static final int CLOUMN_SIZE = 3;
 
-    @SuppressLint("SimpleDateFormat")
-    public static SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy_MM_dd_HHmmss");
 
-    public static String  createExcelFileName() {
-        String excelName = formatter1.format(new Date()) + "_" + SysConfig.resultDestFileName;
+    public static String  createExcelFileName(String batchName) {
+        String excelName = batchName + "_" + SysConfig.resultDestFileName;
         return excelName;
     }
 
