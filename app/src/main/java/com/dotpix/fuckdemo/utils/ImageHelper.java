@@ -103,4 +103,36 @@ public class ImageHelper {
             return "";
         }
     }
+
+
+    public static Bitmap cropBitmapFunc(Bitmap cameraBitmap, int[] box){
+        int centerx = box[0] + (box[2] - box[0]) / 2;
+        int centery = box[1] + (box[3] - box[1]) / 2;
+
+        int x1 = (int) (centerx - (centerx - box[0]) * SysConfig.CROP_FACE_IMAGE_TAP);
+        int y1 = (int) (centery - (centery - box[1]) * SysConfig.CROP_FACE_IMAGE_TAP);
+        if (x1 <= 0) {
+            x1 = 0;
+        }
+        if (y1 <= 0) {
+            y1 = 0;
+        }
+
+        int x2 = (int) (centerx + (centerx - box[0]) * SysConfig.CROP_FACE_IMAGE_TAP);
+        int y2 = (int) (centery + (centery - box[1]) * SysConfig.CROP_FACE_IMAGE_TAP);
+        if (x2 >= cameraBitmap.getWidth()) {
+            x2 = cameraBitmap.getWidth();
+        }
+        if (y2 >= cameraBitmap.getHeight()) {
+            y2 = cameraBitmap.getHeight();
+        }
+
+        Bitmap cropCameraBitmap = Bitmap.createBitmap(cameraBitmap,
+                x1,
+                y1,
+                x2 - x1,
+                y2 - y1, null, false);
+        return cropCameraBitmap;
+    }
+
 }

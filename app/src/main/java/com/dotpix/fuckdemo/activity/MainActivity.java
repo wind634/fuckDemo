@@ -276,25 +276,32 @@ public class MainActivity extends AppCompatActivity {
 
     public void setCurrentFaceData(final Bitmap cameraBitmap, final ArrayList<DetectResult> cameraBitmapResult) {
         Log.i(TAG, "setCurrentFaceData....");
-        this.currentFaceBitmap = cameraBitmap;
+        Bitmap cropBitmap = ImageHelper.cropBitmapFunc(cameraBitmap, cameraBitmapResult.get(2).getBox());
+        if(cropBitmap!=null){
+            this.currentFaceBitmap = cropBitmap;
+        } else {
+            this.currentFaceBitmap = cameraBitmap;
+        }
+
         this.currentFaceBitmapFeature = faceKit.getFeatureByDetectResult(cameraBitmap, cameraBitmapResult.get(0));
 
     }
 
     public float startToCompare( ) {
-        Log.i(TAG, "startToCompare....");
         // 说明底库图片无人脸
         if(currentComparedBitmapFeature==null) {
             Log.i(TAG, "底库图片无人脸 endToCompare....");
+            Log.e(SysConfig.COMPARE_TAG, "compare image no face....");
             return  -1;
         }else{
             // 说明照相机未抓拍到人脸
             if(currentFaceBitmapFeature==null){
-                Log.i(TAG, "endToCompare....");
+                Log.e(SysConfig.COMPARE_TAG, "camrea no find face....");
                 return -2;
             }else {
+                Log.e(SysConfig.COMPARE_TAG, "start to  compareScore....");
                 Float score = faceKit.compareScore(currentFaceBitmapFeature, currentComparedBitmapFeature);
-                Log.i(TAG, "endToCompare....");
+                Log.e(SysConfig.COMPARE_TAG, "score:" + score);
                 return score;
             }
         }
@@ -349,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
     public String  saveFaceBitmap(){
         String[] pathList = imagePathList.get(currentCompareImageIndex).split("/");
         String imageName =  pathList[pathList.length-1];
-        String faceImageName = imageName + formatter2.format(new Date());
+        String faceImageName = "cameraFace_" + formatter2.format(new Date()) + "_____" + imageName;
         return ImageHelper.saveBitmapToPath(currentFaceBitmap, faceImageName);
     }
 

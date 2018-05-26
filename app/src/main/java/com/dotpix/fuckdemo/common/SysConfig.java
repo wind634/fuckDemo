@@ -35,4 +35,7 @@ public class SysConfig {
 
     // 抓拍的图片处理路径
     public static String caputerFaceImageDir = Environment.getExternalStorageDirectory() +  "/faceDir";
+
+
+    public static float CROP_FACE_IMAGE_TAP = 1.3f;
 }
