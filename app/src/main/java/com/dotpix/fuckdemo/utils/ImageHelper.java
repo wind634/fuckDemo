@@ -78,7 +78,7 @@ public class ImageHelper {
             String sdCardDir = SysConfig.caputerFaceImageDir;
             File dirFile = new File(sdCardDir);  //目录转化成文件夹
             if (!dirFile.exists()) {              //如果不存在，那就建立这个文件夹
-                dirFile.mkdirs();
+                dirFile.mkdir();
             }                          //文件夹有啦，就可以保存图片啦
 
             String filePath = sdCardDir + "/" + fileName;

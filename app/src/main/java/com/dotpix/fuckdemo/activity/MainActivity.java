@@ -295,17 +295,17 @@ public class MainActivity extends AppCompatActivity {
         // 说明底库图片无人脸
         if(currentComparedBitmapFeature==null) {
             Log.i(TAG, "底库图片无人脸 endToCompare....");
-            Log.e(SysConfig.COMPARE_TAG, "compare image no face....");
+            Log.e("startToCompare", "compare image no face....");
             return  -1;
         }else{
             // 说明照相机未抓拍到人脸
             if(currentFaceBitmapFeature==null){
-                Log.e(SysConfig.COMPARE_TAG, "camrea no find face....");
+                Log.e("startToCompare", "camrea no find face....");
                 return -2;
             }else {
-                Log.e(SysConfig.COMPARE_TAG, "start to  compareScore....");
+                Log.e("startToCompare", "start to  compareScore....");
                 Float score = faceKit.compareScore(currentFaceBitmapFeature, currentComparedBitmapFeature);
-                Log.e(SysConfig.COMPARE_TAG, "score:" + score);
+                Log.e("startToCompare", "score:" + score);
                 return score;
             }
         }
