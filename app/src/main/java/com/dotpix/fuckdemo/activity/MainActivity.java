@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView dateText;
     private ImageView showImage;
     private TextView logText;
+    private TextView descText;
 
     public static List<String> imagePathList;
 
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
         showImage = (ImageView)findViewById(R.id.showImage);
 
         logText = (TextView) findViewById(R.id.logText);
+        descText = (TextView) findViewById(R.id.descText);
+
     }
 
     public void startReg(){
@@ -327,6 +330,8 @@ public class MainActivity extends AppCompatActivity {
         currentCompareImageIndex = index;
         Glide.with(MainActivity.this).
                 load(imagePathList.get(index)).into(showImage);
+        descText.setText("总共要处理"+imagePathList.size()+"张图片, 现在处理到第"+(index+1)+"张");
+
         Bitmap compareImageBitmap = BitmapFactory.decodeFile(imagePathList.get(index));
         ArrayList<DetectResult>  compareImageResult = faceKit.detectFace(compareImageBitmap);
         if(compareImageResult!=null){

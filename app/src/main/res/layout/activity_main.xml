@@ -62,8 +62,19 @@
 
             <TextView
                 android:layout_marginTop="20dp"
-                android:id="@+id/dateText"
+                android:id="@+id/descText"
                 android:layout_below="@id/startCompare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textSize="22sp"
+                android:background="@color/red"
+                />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:id="@+id/dateText"
+                android:layout_below="@id/descText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
